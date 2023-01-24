@@ -12,12 +12,12 @@ class MpesaController extends Controller
     {
         $mpesa = new \Safaricom\Mpesa\Mpesa();
         $BusinessShortCode=174379;
-        $LipaNaMpesaPasskey="bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919";
+        $LipaNaMpesaPasskey="";
         $TransactionType="CustomerPayBillOnline";
         $Amount="1";
-        $PartyA="254725038602";
+        $PartyA="";
         $PartyB="174379";
-        $PhoneNumber="254725038602";
+        $PhoneNumber="";
         $CallBackURL="https://muiruri.com";
         $AccountReference="Testing for TMS";
         $TransactionDesc="Lipa na Mpesa ";
