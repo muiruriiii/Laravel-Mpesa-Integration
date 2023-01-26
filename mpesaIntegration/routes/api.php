@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,3 +19,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/mpesa/password','App\Http\Controllers\MpesaController@LipaNaMpesaPassword');
+Route::post('/mpesa/new/access/token','App\Http\Controllers\MpesaController@newAccessToken');
+Route::post('/mpesa/stk/push','App\Http\Controllers\MpesaController@stkPush');

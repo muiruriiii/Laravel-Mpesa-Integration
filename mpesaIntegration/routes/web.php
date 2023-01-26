@@ -17,5 +17,35 @@ use App\Http\Controllers\MpesaController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/stk/push/simulation',[MpesaController::class,'stkSimulation']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Stk Routing
+// Route::get('/stk/push/simulation',[MpesaController::class,'stkSimulation']);
+// Route::post('sts/access/token',[MpesaController::class,'generateAccessToken']);
+// Route::post('sts/password/generate',[MpesaController::class,'generatePassword']);
+// Route::post('sts/payment/confirmation',[MpesaController::class,'mpesaConfirmation']);
+// Route::post('sts/validation',[MpesaController::class,'mpesaValidation']);
+// Route::post('sts/register/urls',[MpesaController::class,'mpesaRegisterUrls']);
+//
 
