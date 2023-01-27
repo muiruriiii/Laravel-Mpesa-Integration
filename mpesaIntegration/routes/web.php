@@ -18,7 +18,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/products',[MpesaController::class,'products']);
 
+
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/pay', function () {
+    return view('pay');
+});
+Route::get('/confirm', function () {
+    return view('confirm');
+});
+Route::post('/confirm', 'App\Http\Controllers\MpesaController@confirm')->name('confirm');
 
 
 
@@ -48,4 +62,17 @@ Route::get('/', function () {
 // Route::post('sts/validation',[MpesaController::class,'mpesaValidation']);
 // Route::post('sts/register/urls',[MpesaController::class,'mpesaRegisterUrls']);
 //
+
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+
+
+
+
+
+
 

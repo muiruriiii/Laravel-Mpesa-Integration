@@ -3,43 +3,43 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Mpesa;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Carbon;
+use App\Models\MpesaTransaction;
 
 class MpesaController extends Controller
 {
 //STK Push Simulation
-    public function stkSimulation()
-    {
-        $mpesa = new \Safaricom\Mpesa\Mpesa();
-        $BusinessShortCode=174379;
-        $LipaNaMpesaPasskey="";
-        $TransactionType="CustomerPayBillOnline";
-        $Amount="1";
-        $PartyA="";
-        $PartyB="174379";
-        $PhoneNumber="";
-        $CallBackURL="https://muiruri.com";
-        $AccountReference="Testing for TMS";
-        $TransactionDesc="Lipa na Mpesa ";
-        $Remarks="Payment Successful";
-
-        $stkPushSimulation=$mpesa->STKPushSimulation(
-            $BusinessShortCode,
-            $LipaNaMpesaPasskey,
-            $TransactionType,
-            $Amount,
-            $PartyA,
-            $PartyB,
-            $PhoneNumber,
-            $CallBackURL,
-            $AccountReference,
-            $TransactionDesc,
-            $Remarks
-        );
-        dd($stkPushSimulation);
-    }
+//     public function stkSimulation()
+//     {
+//         $mpesa = new \Safaricom\Mpesa\Mpesa();
+//         $BusinessShortCode=174379;
+//         $LipaNaMpesaPasskey="";
+//         $TransactionType="CustomerPayBillOnline";
+//         $Amount="1";
+//         $PartyA="";
+//         $PartyB="174379";
+//         $PhoneNumber="";
+//         $CallBackURL="https://muiruri.com";
+//         $AccountReference="Testing for TMS";
+//         $TransactionDesc="Lipa na Mpesa ";
+//         $Remarks="Payment Successful";
+//
+//         $stkPushSimulation=$mpesa->STKPushSimulation(
+//             $BusinessShortCode,
+//             $LipaNaMpesaPasskey,
+//             $TransactionType,
+//             $Amount,
+//             $PartyA,
+//             $PartyB,
+//             $PhoneNumber,
+//             $CallBackURL,
+//             $AccountReference,
+//             $TransactionDesc,
+//             $Remarks
+//         );
+//         dd($stkPushSimulation);
+//     }
 //C2B Simulation
     public function LipaNaMpesaPassword()
     {
@@ -75,9 +75,9 @@ class MpesaController extends Controller
         $user = $request->user;
         $amount = $request->amount;
         $phone =  $request->phone;
-        $formatedPhone = substr($phone, 1);
+        $formatedPhone = substr($phone, 1); //7*******
         $code = "254";
-        $phoneNumber = $code.$formatedPhone;
+        $phoneNumber = $code.$formatedPhone; //2547*******
 
         $url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
         $curl_post_data = [
@@ -85,11 +85,11 @@ class MpesaController extends Controller
         'Password' => $this->LipaNaMpesaPassword(),
         'Timestamp' => Carbon::rawParse('now')->format('YmdHms'),
         'TransactionType' => 'CustomerPayBillOnline',
-        'Amount' => 1,
-        'PartyA' => ,
+        'Amount' => $amount,
+        'PartyA' => $phoneNumber,
         'PartyB' => 174379,
-        'PhoneNumber' => ,
-        'CallBackURL' => 'https://muiruri.com',
+        'PhoneNumber' => $phoneNumber,
+        'CallBackURL' => 'http://2d57-41-80-107-56.ngrok.io/api/stk/push/callback/url',
         'AccountReference' => "TMS Tester Payment",
         'TransactionDesc' => "Lipa Na M-PESA"
         ];
@@ -106,6 +106,26 @@ class MpesaController extends Controller
         return redirect('/confirm');
 
     }
+    public function MpesaRes(Request $request)
+    {
+        $response = json_decode($request->getContent());
+
+        $trn = new MpesaTransaction;
+        $trn->response = json_encode($response);
+        $trn->PhoneNumber = $response->PhoneNumber;
+        $trn->save();
+    }
+    public function confirm(){
+    //compare codes and validate pay
+            return redirect('/pay');
+    }
+    public function products(){
+        return view('products');
+    }
+    public function pay(){
+        return view('pay');
+    }
+
 
 
 }

@@ -112,6 +112,7 @@
       <excludeFolder url="file://$MODULE_DIR$/mpesaIntegration/vendor/dragonmantank/cron-expression" />
       <excludeFolder url="file://$MODULE_DIR$/mpesaIntegration/vendor/graham-campbell/result-type" />
       <excludeFolder url="file://$MODULE_DIR$/mpesaIntegration/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/mpesaIntegration/vendor/laravel/ui" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
